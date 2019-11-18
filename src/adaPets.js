@@ -6,28 +6,43 @@ const setResult = result.setResult;
 const setError = result.setError;
 
 const BASE_URL = "https://petdibs.herokuapp.com/pets/";
+const bogus_URL = "https://petdibs.herokuapp.com/bogus/";
+let ENDPOINT;
 
-// Option functions.
+// WAVE 1
 const listPets = () => {
-  // Fill out as part of Wave 1
   axios.get(BASE_URL) 
   .then ((response) => {
-    console.log(response);
-    
-    setResult(response);
+    // this fill out the listPets function. This will need to make a call to the Pets API and should 
+    setResult(response.data);
   })
   .catch ((error) => {
-    setError(error);
+    // call setError with an error message if the request failss
+    setError("you done messed up!");
   });
 }
 
+// WAVE 2
 const showDetails = (selectedPet) => {
-  if (!selectedPet) {
-    setError("You tried to show details for a pet without selecting it!");
-    return;
-  }
+  ENDPOINT = `${petID}`;
+  axios.get(BASE_URL+ENDPOINT)
+  .then ((response) => {
+    setResult(response.data);
+  })
+  .catch((error) => {
+    setError("Ain't nobody by that ID here!");
+  })
+  .finally(() => {
+    if (!selectedPet) {
+      setError("You tried to show details for a pet without selecting it!");
+      return;
+    }
+  });
+  
 
-  // Fill out as part of Wave 2.
+
+  // * setError should be passed an error message.  (You may need to write this.)
+  //   * The tests for this wave are looking for an error message that will *include* two specific words inside of the string. (It does this with Regex). Part of this wave is to read through the tests and determine what two words should be inside of the error message string.  
 }
 
 const removePet = (selectedPet) => {
