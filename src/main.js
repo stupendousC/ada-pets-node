@@ -56,8 +56,17 @@ const doAction = (action, resultCallback) => {
   }
 }
 
+function iMadeThis() {
+  console.log('yippie!!! Listing all pets!');
+  listPets();
+}
+
 // Register the options.
 vorpal.find('exit').remove();
+vorpal
+  .command("I made this!", "super special custom method!")
+  .action(doAction(iMadeThis))
+
 vorpal
   .command("exit", "exits the program")
   .action(doAction(exit));
