@@ -24,30 +24,24 @@ const listPets = () => {
 
 // WAVE 2
 const showDetails = (selectedPet) => {
-  ENDPOINT = `${petID}`;
+  ENDPOINT = `${selectedPet}`;
   axios.get(BASE_URL+ENDPOINT)
   .then ((response) => {
     setResult(response.data);
   })
   .catch((error) => {
-    setError("Ain't nobody by that ID here!");
-  })
-  .finally(() => {
     if (!selectedPet) {
-      setError("You tried to show details for a pet without selecting it!");
-      return;
+      setError("Can't show details if you don't select a pet");
+    } else {
+      setError("Show details failed");
     }
   });
-  
-
-
-  // * setError should be passed an error message.  (You may need to write this.)
-  //   * The tests for this wave are looking for an error message that will *include* two specific words inside of the string. (It does this with Regex). Part of this wave is to read through the tests and determine what two words should be inside of the error message string.  
 }
 
+// WAVE 3
 const removePet = (selectedPet) => {
   if (!selectedPet) {
-    setError("You tried to remove a pet without selecting it!");
+    setError("You tried to delete a pet without selecting it!");
     return;
   }
 
